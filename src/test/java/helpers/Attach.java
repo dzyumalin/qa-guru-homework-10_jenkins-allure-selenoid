@@ -69,8 +69,7 @@ public class Attach {
     }
 
     public static URL getVideoUrl(String sessionId) {
-        final String videoUrlRemote = PropertiesReader.readVideoUrl();
-        String videoUrl = videoUrlRemote + sessionId + ".mp4";
+        String videoUrl = String.format("https://%s/video/" + sessionId + ".mp4", System.getProperty("url"));
 
         try {
             return new URL(videoUrl);
