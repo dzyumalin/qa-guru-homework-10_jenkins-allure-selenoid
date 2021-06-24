@@ -49,3 +49,9 @@ task some_run(type: Test) {
         includeTags 'terminal'
     }
 }
+
+task fake_test(type: Test) {
+    useJUnitPlatform {
+        includeTags 'fake'
+    }
+}
