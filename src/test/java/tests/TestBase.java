@@ -4,6 +4,7 @@ import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.logevents.SelenideLogger;
 import static config.Credential.credentials;
 import helpers.Attach;
+import helpers.PropertiesReader;
 import io.qameta.allure.selenide.AllureSelenide;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
@@ -16,6 +17,7 @@ import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 public class TestBase {
     @BeforeAll
     static void setup() {
+        final String remoteUrl = PropertiesReader.readUrl();
         SelenideLogger.addListener("AllureSelenide", new AllureSelenide());
 
         Configuration.startMaximized = true;
@@ -27,7 +29,7 @@ public class TestBase {
 
         Configuration.browserCapabilities = capabilities;
         Configuration.remote = String.format("https://%s:%s@%s/wd/hub/",
-                credentials.login(), credentials.password(), System.getProperty("url"));
+                credentials.login(), credentials.password(), remoteUrl);
     }
 
     @AfterEach
